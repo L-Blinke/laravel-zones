@@ -17,9 +17,9 @@ return new class extends Migration
             $table->string('type');
             $table->foreignId('zone_id')->nullable();
             $table->foreignIdFor(User::class,'petitioner_id')->nullable();
-            $table->string('resolutionStatus');
+            $table->string('resolutionStatus')->nullable();
             $table->timestamps();
-            $table->dateTimeTz('completionDate');
+            $table->dateTimeTz('completionDate')->nullable();
         });
     }
 

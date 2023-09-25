@@ -70,7 +70,7 @@ return [
     |
     */
 
-    'timezone' => '	America/Argentina/Tucuman',
+    'timezone' => 'America/Argentina/Tucuman',
 
     /*
     |--------------------------------------------------------------------------

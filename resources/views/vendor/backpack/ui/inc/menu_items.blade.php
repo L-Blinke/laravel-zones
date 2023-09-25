@@ -6,3 +6,4 @@
 <x-backpack::menu-item title="App preferences" icon="la la-exclamation" :link="backpack_url('edit-app-info')" />
 
 <x-backpack::menu-item title="Otp codes" icon="la la-question" :link="backpack_url('otp-code')" />
+<x-backpack::menu-item title="Userimports" icon="la la-question" :link="backpack_url('userimport')" />

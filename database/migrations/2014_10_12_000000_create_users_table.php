@@ -17,7 +17,7 @@ return new class extends Migration
             $table->string('surname')->default("none");
             $table->string('email')->unique();
             $table->bigInteger('cuil')->default(random_int(20000000002, 20459999999))->unique()->nullable();
-            $table->string('privilege')->default("Receptionist");
+            $table->string('privilege')->default("Accountant");
             $table->timestamp('email_verified_at')->nullable();
             $table->string('password');
             $table->rememberToken();

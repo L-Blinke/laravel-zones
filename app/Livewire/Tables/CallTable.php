@@ -6,6 +6,7 @@ use Rappasoft\LaravelLivewireTables\DataTableComponent;
 use Rappasoft\LaravelLivewireTables\Views\Column;
 use App\Models\Call;
 use Illuminate\Database\Eloquent\Builder;
+use Carbon\Carbon;
 
 class CallTable extends DataTableComponent
 {
@@ -15,7 +16,9 @@ class CallTable extends DataTableComponent
 
     public function configure(): void
     {
-        $this->setPrimaryKey('id');
+        $this->setPrimaryKey('id')
+            ->setHideBulkActionsWhenEmptyDisabled()
+            ->setBulkActionsEnabled();
     }
 
     public function builder(): Builder
@@ -45,5 +48,27 @@ class CallTable extends DataTableComponent
             Column::make("Made at", "created_at")
                 ->sortable(),
         ];
+    }
+
+    public function bulkActions(): array
+    {
+        return [
+            'solveSuccess' => 'Solved succesfully',
+            'solveUnsuccess' => 'Solved unsuccesfully',
+        ];
+    }
+
+    public function solveSuccess()
+    {
+        Call::whereIn('id', $this->getSelected())->update(['resolutionStatus' => "Solved succesfully", 'completionDate' => Carbon::now()]);
+
+        $this->clearSelected();
+    }
+
+    public function solveUnsuccess()
+    {
+        Call::whereIn('id', $this->getSelected())->update(['resolutionStatus' => "Solved unsuccesfully", 'completionDate' => Carbon::now()]);
+
+        $this->clearSelected();
     }
 }

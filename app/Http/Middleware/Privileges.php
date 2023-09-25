@@ -6,6 +6,7 @@ use Closure;
 use Illuminate\Http\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\URL;
 
 class Privileges
 {
@@ -16,8 +17,23 @@ class Privileges
      */
     public function handle(Request $request, Closure $next): Response
     {
-        if ($request->routeIs('dashboard') && !in_array(Auth::user()->privilege, ["Receptionist", "Admin", "Accountant"])) {
-            return redirect()->route('download');
+        if(Auth::check() || str_contains($request->route()->getPrefix(),'admin')){
+            switch (Auth::user()->privilege) {
+                case 'Receptionist':
+                    if (str_contains($request->route()->getPrefix(),'admin')) {
+                        return redirect('dashboard');
+                    }else{
+                        return $next($request);
+                    }
+                case 'Accountant':
+                    if (str_contains($request->route()->getPrefix(),'admin') || str_contains($request->route()->getPrefix(),'internal')) {
+                        return $next($request);
+                    }else{
+                        return redirect('/admin/');
+                    }
+                default:
+                    return $next($request);
+            }
         }else{
             return $next($request);
         }

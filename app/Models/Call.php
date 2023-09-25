@@ -4,6 +4,7 @@ namespace App\Models;
 
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
+use Carbon\Carbon;
 
 class Call extends Model
 {
@@ -30,4 +31,12 @@ class Call extends Model
     protected $casts = [
         'completionDate' => 'datetime',
     ];
+
+    public static function resolveCall($id, $status)
+    {
+        $call = Call::find($id)->get();
+        $call->resolutionStatus = $status;
+        $call->completionDate = Carbon::now();
+        $call->save();
+    }
 }

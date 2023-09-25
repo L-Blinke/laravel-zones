@@ -1,8 +1,7 @@
 <?php
 
+use App\Http\Controllers\RoutingController;
 use Illuminate\Support\Facades\Route;
-use Illuminate\Http\Request;
-use App\Models\OtpCode;
 
 /*
 |--------------------------------------------------------------------------
@@ -15,15 +14,23 @@ use App\Models\OtpCode;
 |
 */
 
-Route::get('/', function () {
-    return view('welcome');
+Route::controller(RoutingController::class)->group(function () {
+    Route::get('/', 'home')->name('home')->middleware('auth:sanctum','web');
+    Route::get('/call', 'call')->middleware('otpVerification');
+    Route::post('/call', 'call')->middleware('otpVerification');
+    Route::get('/chats', 'chat')->name('chats')->middleware('auth:sanctum','web');
+    Route::get('/zone/{zoneId}', 'zone')->middleware('auth:sanctum','web');
+});
+
+Route::prefix('internal')->group(function () {
+    Route::get('/user/export', [RoutingController::class, 'userExport']);
 });
 
 Route::middleware([
     'auth:sanctum',
     config('jetstream.auth_session'),
     'verified',
-    'privileges'
+    'web'
 ])->group(function () {
     Route::get('/dashboard', function () {
         return view('dashboard');
@@ -31,41 +38,11 @@ Route::middleware([
     Route::get('/download', function () {
         return view('download');
     })->name('download');
-    Route::get('/chats', function () {
-        return view('chats');
-    })->name('chats');
-    Route::get('/zone/{zoneId}', function (int $zoneId) {
-        return view('zone', ["zone" => $zoneId]);
-    })->name('zone');
-});
 
-Route::get('/call', function (Request $request) {
-    $otp = $request->input('p');
-    $type = $request->input('t');
-
-    foreach(OtpCode::pluck('passphrase')->toArray() as $pass){
-        if (Otp::validate($pass, $otp)->status) {
-            $call = new Call();
-            $call->type = OtpCode::where('passphrase', '=', $pass)->get()->type;
-            $call->zone_id = OtpCode::where('passphrase', '=', $pass)->get()->zone_id;
-            $call->save();
-        }
-    }
-
-    return 200;
-});
-Route::post('/call', function (Request $request) {
-    $otp = $request->input('p');
-    $type = $request->input('t');
-
-    foreach(OtpCode::pluck('passphrase')->toArray() as $pass){
-        if (Otp::validate($pass, $otp)->status) {
-            $call = new Call();
-            $call->type = OtpCode::where('passphrase', '=', $pass)->get()->type;
-            $call->zone_id = OtpCode::where('passphrase', '=', $pass)->get()->zone_id;
-            $call->save();
-        }
-    }
-
-    return 200;
+    Route::get('/document/userResume/{id}',function (string $id){
+        return view('presets.userResume', ["id" => intval($id)]);
+    });
+    Route::get('/document/callResume/{id}',function (string $id){
+        return view('presets.userResume', ["id" => intval($id)]);
+    });
 });

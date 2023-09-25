@@ -9,6 +9,7 @@ class ZoneRow extends Component
 {
     public $zone;
     public $model;
+    public $hasBlueCall;
     public function render()
     {
         $model = Zone::find($this->zone);
