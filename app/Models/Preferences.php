@@ -2,11 +2,14 @@
 
 namespace App\Models;
 
+use App\Enums\ZonePreferencesTypesEnum;
+use Backpack\CRUD\app\Models\Traits\CrudTrait;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 
 class Preferences extends Model
 {
+    use CrudTrait;
     use HasFactory;
 
     /**
@@ -16,5 +19,9 @@ class Preferences extends Model
      */
     protected $fillable = [
         'zonePreference'
+    ];
+
+    protected $casts = [
+        'zonePreference' => ZonePreferencesTypesEnum::class
     ];
 }

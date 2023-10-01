@@ -6,25 +6,16 @@ use Closure;
 use Illuminate\Contracts\View\View;
 use Illuminate\View\Component;
 use App\Models\Zone;
-use App\Models\Call;
 
 class zoneRow extends Component
 {
-    public $zone;
-    public $model;
-    public $hasBlueCall;
+    public Zone $model;
     /**
      * Create a new component instance.
      */
-    public function __construct()
+    public function __construct(public int $zone)
     {
-        $this->model = Zone::find($this->zone);
 
-        $this->hasBlueCall = false;
-
-        if (Call::where('type', '=', 'Blue')->where('zone_id', '=',$this->zone)->where('resolutionStatus', '=', null)) {
-            $this->hasBlueCall = true;
-        }
     }
 
     /**
@@ -32,6 +23,8 @@ class zoneRow extends Component
      */
     public function render(): View|Closure|string
     {
+        $model = Zone::first();
+
         return view('components.dashboard.zones.zone-row');
     }
 }

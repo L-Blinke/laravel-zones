@@ -1,0 +1,11 @@
+{
+    "poppins": {
+        "600": "poppins_600_272b14b77a21dc5827f4570eff556c8f"
+    },
+    "roboto": {
+        "300": "\/home\/maximoprandi\/Documentos\/Projects\/Personal\/alertar-webapp\/storage\/fonts\/roboto_300_32acfcb296f555e063ebba2be7db9e2f",
+        "normal": "\/home\/maximoprandi\/Documentos\/Projects\/Personal\/alertar-webapp\/storage\/fonts\/roboto_normal_7bc701b343c10631f60048716b96e4f7",
+        "500": "\/home\/maximoprandi\/Documentos\/Projects\/Personal\/alertar-webapp\/storage\/fonts\/roboto_500_5774d6fb05eba3d096525f821dbe4137",
+        "bold": "roboto_bold_8db5cb5d0586c1e891426d13097b1d04"
+    }
+}

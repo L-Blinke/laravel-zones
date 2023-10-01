@@ -18,6 +18,7 @@ class ZoneCrudController extends CrudController
     use \Backpack\CRUD\app\Http\Controllers\Operations\UpdateOperation;
     use \Backpack\CRUD\app\Http\Controllers\Operations\DeleteOperation;
     use \Backpack\CRUD\app\Http\Controllers\Operations\ShowOperation;
+    use \App\Http\Controllers\Admin\Operations\AsignOperation;
 
     /**
      * Configure the CrudPanel object. Apply settings to all operations.
@@ -46,10 +47,7 @@ class ZoneCrudController extends CrudController
             'name' => 'id'
         ]);
 
-        /**
-         * Columns can be defined using the fluent syntax:
-         * - CRUD::column('price')->type('number');
-         */
+        CRUD::addButtonFromModelFunction('line','asign','asign','beginning');
     }
 
     /**
@@ -72,7 +70,7 @@ class ZoneCrudController extends CrudController
             'model'     => "App\Models\User",
             'attribute' => 'name',
             'options'   => (function ($query) {
-                 return $query->where('privilege', '=', "Patient")->get();
+                 return $query->where('privilege', '=', "Patient")->doesntHave('zone')->get();
              })
          ]);
          CRUD::addField([  // Select

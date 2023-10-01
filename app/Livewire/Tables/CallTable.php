@@ -43,7 +43,7 @@ class CallTable extends DataTableComponent
                 ->sortable(),
             Column::make("Solve status", "resolutionStatus")
                 ->sortable(),
-            Column::make("Solved at", "completionDate")
+            Column::make("Solved at", "completed_at")
                 ->sortable(),
             Column::make("Made at", "created_at")
                 ->sortable(),
@@ -60,14 +60,14 @@ class CallTable extends DataTableComponent
 
     public function solveSuccess()
     {
-        Call::whereIn('id', $this->getSelected())->update(['resolutionStatus' => "Solved succesfully", 'completionDate' => Carbon::now()]);
+        Call::whereIn('id', $this->getSelected())->update(['resolutionStatus' => "Solved succesfully", 'completed_at' => Carbon::now()]);
 
         $this->clearSelected();
     }
 
     public function solveUnsuccess()
     {
-        Call::whereIn('id', $this->getSelected())->update(['resolutionStatus' => "Solved unsuccesfully", 'completionDate' => Carbon::now()]);
+        Call::whereIn('id', $this->getSelected())->update(['resolutionStatus' => "Solved unsuccesfully", 'completed_at' => Carbon::now()]);
 
         $this->clearSelected();
     }

@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use Carbon\Carbon;
 use App\Models\Call;
 use App\Models\OtpCode;
 use Illuminate\Http\Request;
@@ -25,10 +26,13 @@ class RoutingController extends Controller
     }
 
     public function call(Request $request) : void{
-        $call = new Call();
-        $call->type = $request->input('t');
-        $call->zone_id = $request->input('z');
-        $call->save();
+        $info = OtpCode::find($request->input('i'));
+        (Call::antiqueCalls() == true) ? Call::clearCallsAndStartCall($info->type,$info->zone_id): Call::StartCall($info->type,$info->zone_id);
+    }
+
+    public function solveCall(Request $request) : void{
+        $otpCode = OtpCode::find($request->input('i'));
+        Call::where('zone_id', $otpCode->zone_id)->where('type', $otpCode->type)->first()->solve(['resolutionStatus' => $request->input('s')]);
     }
 
     public function zone(int $id) {
@@ -39,15 +43,43 @@ class RoutingController extends Controller
         return view('chat');
     }
 
-    public function userResume(int $id){
-        return view('presents.userResume', ["id" => $id]);
-    }
-
-    public function userExport() {
+    public function usersExport() {
         return response()->download(storage_path('app/public/tmp/users.xlsx'));
     }
 
-    public function userImport() {
-        return view('presents.userResume');
+    public function clinicalLogsExport() {
+        return response()->download(storage_path('app/public/tmp/clinicalLogs.xlsx'));
+    }
+
+    public function pathologiesExport() {
+        return response()->download(storage_path('app/public/tmp/pathologies.xlsx'));
+    }
+
+    public function pathologyTypesExport() {
+        return response()->download(storage_path('app/public/tmp/pathologyTypes.xlsx'));
+    }
+
+    public function medicalInsurancesExport() {
+        return response()->download(storage_path('app/public/tmp/medicalInsurances.xlsx'));
+    }
+
+    public function usersImport() {
+        return view('imports.userImport');
+    }
+
+    public function PathologiesImport() {
+        return view('imports.pathologiesImport');
+    }
+
+    public function PathologyTypesImport() {
+        return view('imports.pathologyTypesImport');
+    }
+
+    public function MedicalInsurancesImport() {
+        return view('imports.medicalInsurancesImport');
+    }
+
+    public function ClinicalLogsimport() {
+        return view('imports.clinicalLogsImport');
     }
 }

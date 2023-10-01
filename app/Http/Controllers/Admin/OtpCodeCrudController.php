@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers\Admin;
 
+use App\Enums\InterruptorTypesEnum;
 use App\Http\Requests\OtpCodeRequest;
 use Backpack\CRUD\app\Http\Controllers\CrudController;
 use Backpack\CRUD\app\Library\CrudPanel\CrudPanelFacade as CRUD;
@@ -62,13 +63,12 @@ class OtpCodeCrudController extends CrudController
             'type' => Rule::in(["General","Blue"]),
             'passphrase' => 'required'
        ]);
-
        CRUD::AddField([
-        'name'        => 'type',
-        'label'       => "Interruptor type",
-        'type'        => 'select_from_array',
-        'options'     => ["Blue" => "Blue Code", "General" => "General call"],
-        'allows_null' => false,
+            'name'        => 'type',
+            'label'       => "Interruptor type",
+            'type'        => 'select_from_array',
+            'options'     => InterruptorTypesEnum::asArray(),
+            'allows_null' => false,
         ]);
        CRUD::AddField([
            'name'        => 'passphrase',

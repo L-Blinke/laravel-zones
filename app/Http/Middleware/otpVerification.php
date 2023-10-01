@@ -19,12 +19,10 @@ class otpVerification
     {
         $otp = new Otp;
 
-        foreach(OtpCode::where('zone_id', '=', $request->input('z'))->pluck('passphrase')->toArray() as $pass){
-            if ($otp->validate($pass, $request->input('p'))->status) {
-                return $next($request);
-            }
+        if ($otp->validate(OtpCode::find($request->input('i'))->passphrase, $request->input('p'))->status) {
+            return $next($request);
         }
 
-        return abort(404);
+        return abort(403);
     }
 }

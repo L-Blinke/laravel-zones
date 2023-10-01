@@ -2,6 +2,7 @@
 
 namespace App\Models;
 
+use App\Enums\CallTypesEnum;
 use Backpack\CRUD\app\Models\Traits\CrudTrait;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
@@ -12,20 +13,16 @@ class OtpCode extends Model
     use CrudTrait;
     use HasFactory;
 
-    /**
-     * The attributes that are mass assignable.
-     *
-     * @var array<int, string>
-     */
     protected $fillable = [
         'passphrase',
         'type',
         'zone_id'
     ];
 
-    /**
-     * Get the nurse associated with the zone.
-     */
+    protected $casts = [
+        'type' => CallTypesEnum::class,
+    ];
+
     public function zone(): BelongsTo
     {
         return $this->belongsTo(Zone::class, 'zone_id');

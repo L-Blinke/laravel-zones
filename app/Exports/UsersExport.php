@@ -17,7 +17,7 @@ class UsersExport implements FromQuery, WithTitle, WithHeadings
     public function headings(): array
     {
         return [
-            '#',
+            'ID',
             'Name',
             'Surname',
             'Email',

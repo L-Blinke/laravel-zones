@@ -17,7 +17,7 @@ class Privileges
      */
     public function handle(Request $request, Closure $next): Response
     {
-        if(Auth::check() || str_contains($request->route()->getPrefix(),'admin')){
+        if(Auth::check()){
             switch (Auth::user()->privilege) {
                 case 'Receptionist':
                     if (str_contains($request->route()->getPrefix(),'admin')) {
@@ -26,7 +26,7 @@ class Privileges
                         return $next($request);
                     }
                 case 'Accountant':
-                    if (str_contains($request->route()->getPrefix(),'admin') || str_contains($request->route()->getPrefix(),'internal')) {
+                    if (str_contains($request->route()->getPrefix(),'admin') || str_contains($request->path(),'livewire') || str_contains($request->route()->getPrefix(),'internal')) {
                         return $next($request);
                     }else{
                         return redirect('/admin/');

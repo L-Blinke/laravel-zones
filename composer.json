@@ -10,6 +10,7 @@
         "backpack/crud": "^6.2",
         "backpack/theme-tabler": "^1.1",
         "barryvdh/laravel-dompdf": "^2.0",
+        "bensampo/laravel-enum": "^6.6",
         "guzzlehttp/guzzle": "^7.2",
         "ichtrojan/laravel-otp": "^1.4",
         "laravel/framework": "^10.10",
@@ -21,7 +22,8 @@
         "musonza/chat": "^6.2",
         "rappasoft/laravel-livewire-tables": "dev-v3-master",
         "simplesoftwareio/simple-qrcode": "^4.2",
-        "smalot/pdfparser": "^2.7"
+        "smalot/pdfparser": "^2.7",
+        "spatie/browsershot": "^3.58"
     },
     "require-dev": {
         "backpack/generators": "^4.0",

@@ -28,14 +28,6 @@ class CallTableBackup extends DataTableComponent
                 ->sortable(),
             Column::make("Zone id", "zone_id")
                 ->sortable(),
-            Column::make("Petitioner id", "petitioner_id")
-                ->sortable(),
-            Column::make("Solve status", "resolutionStatus")
-                ->sortable(),
-            Column::make("Solved at", "completionDate")
-                ->sortable(),
-            Column::make("Made at", "created_at")
-                ->sortable(),
         ];
     }
 
@@ -50,14 +42,14 @@ class CallTableBackup extends DataTableComponent
 
     public function solveSuccess()
     {
-        Call::whereIn('id', $this->getSelected())->update(['resolutionStatus' => "Solved succesfully", 'completionDate' => Carbon::now()]);
+        Call::whereIn('id', $this->getSelected())->update(['resolutionStatus' => "Solved succesfully", 'completed_at' => Carbon::now()]);
 
         $this->clearSelected();
     }
 
     public function solveUnsuccess()
     {
-        Call::whereIn('id', $this->getSelected())->update(['resolutionStatus' => "Solved unsuccesfully", 'completionDate' => Carbon::now()]);
+        Call::whereIn('id', $this->getSelected())->update(['resolutionStatus' => "Solved unsuccesfully", 'completed_at' => Carbon::now()]);
 
         $this->clearSelected();
     }

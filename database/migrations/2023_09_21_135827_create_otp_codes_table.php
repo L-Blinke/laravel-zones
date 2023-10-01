@@ -1,5 +1,6 @@
 <?php
 
+use App\Enums\InterruptorTypesEnum;
 use Illuminate\Database\Migrations\Migration;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Support\Facades\Schema;
@@ -14,7 +15,7 @@ return new class extends Migration
         Schema::create('otp_codes', function (Blueprint $table) {
             $table->id();
             $table->string('passphrase');
-            $table->string('type');
+            $table->enum('type', InterruptorTypesEnum::getValues());
             $table->foreignId('zone_id');
             $table->timestamps();
         });

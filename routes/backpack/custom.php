@@ -22,4 +22,9 @@ Route::group([
         return view('app-config');
     })->name('app-config');
     Route::crud('otp-code', 'OtpCodeCrudController');
+    Route::crud('pathologies', 'PathologyCrudController');
+    Route::crud('pathology-type', 'PathologyTypeCrudController');
+    Route::crud('clinical-log', 'ClinicalLogCrudController');
+    Route::crud('medical-insurance', 'MedicalInsuranceCrudController');
+    Route::crud('preferences', 'PreferencesCrudController');
 }); // this should be the absolute last line of this file
