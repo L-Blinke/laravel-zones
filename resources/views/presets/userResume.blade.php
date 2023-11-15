@@ -22,10 +22,8 @@
         <link rel="stylesheet"
             href="https://fonts.googleapis.com/css2?family=Poppins:wght@600&amp;family=Roboto:wght@300;400;500;700&amp;display=swap" />
     </noscript>
-    <link href="/css/font-awesome/css/all.min.css?ver=1.2.0" rel="stylesheet">
-    <link href="/css/bootstrap.min.css?ver=1.2.0" rel="stylesheet">
-    <link href="/css/aos.css?ver=1.2.0" rel="stylesheet">
-    <link href="/css/main.css?ver=1.2.0" rel="stylesheet">
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.9.0/css/all.min.css" rel="stylesheet">
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-T3c6CoIi6uLrA9TneNEoa7RxnatzjcDSCmG1MXxSR1GAsXEV/Dwwykc2MPK8M2HN" crossorigin="anonymous">
     <script src="https://cdn.tailwindcss.com"></script>
 </head>
 
@@ -34,19 +32,18 @@
         <div class="relative overflow-visible max-w-7xl mx-auto sm:px-6 lg:px-8">
             <div class="container">
                 <div class="cover shadow-lg bg-white">
-                    <div class="bg-slate-200 p-3 p-lg-4 text-white">
+                    <div class="bg-slate-200 p-3 p-lg-4">
                         @if ($data instanceof Collection)
                             <div class="row">
                                 <div class="col-lg-4 col-md-5">
                                     <div class="avatar hover-effect bg-white shadow-sm p-1"><img
                                             src="{{ $data["profile_photo_url"] }}" width="200" height="200" /></div>
                                 </div>
-                                <div class="col-lg-8 col-md-7 text-center text-md-start">
-                                    <h2 class="h2 mt-2 text-neutral-800" data-aos="fade-left" data-aos-delay="0"><span
-                                            class="text-sky-600 h1">{{ $data["name"] }}</span> {{ $data["surname"] }}</h2>
-                                    <p data-aos="fade-left" class="text-neutral-800" data-aos-delay="100">
-                                        {{ $data["privilege"] }}</p>
-                                        <p data-aos="fade-left" class="text-neutral-600" data-aos-delay="100">Zone {{ App\Models\Zone::where('patient_id', $data["user_id"])->first()->id }}</p>
+                                <div class="">
+                                    <div class="pb-1">{{ $data["name"] }}</div>
+                                    <div class="pb-1 text-secondary">{{ $data["surname"] }}</div>
+                                    <div class="pb-1">{{ $data["privilege"] }}</div>
+                                    <div class="pb-1 text-secondary">Zone {{ App\Models\EmergencyRoom::where('patient_id', $data["user_id"])->first()->id }}</div>
                                 </div>
                             </div>
                         @else
@@ -56,7 +53,7 @@
                                             src="{{ $data->profile_photo_url }}" width="200" height="200" /></div>
                                 </div>
                                 <div class="col-lg-8 col-md-7 text-center text-md-start">
-                                    <h2 class="h2 mt-2 text-neutral-800" data-aos="fade-left" data-aos-delay="0"><span
+                                    <h2 class="h2 mt-2 text-neutral-800" ><span
                                             class="text-sky-600 h1">{{ $data->name }}</span> {{ $data->surname }}</h2>
                                     <p data-aos="fade-left" class="text-neutral-800" data-aos-delay="100">
                                         {{ $data->privilege }}</p>
@@ -174,7 +171,7 @@
                                 @if ($data->has("Stay-Info"))
                                     @foreach ($data["Stay-Info"] as $info)
                                         @if ($info["type"] == "PatientDesignated")
-                                            <p>At {{$info->info["created_at"]->format('H:i:s')}} of {{$info->info["created_at"]->format('d/m/y')}}, patient {{$data["name"]}}, {{$data["surname"]}} entered the institution with {{$info->info["info"]}}, it’s dispatched to Zone {{$info->zone_id}}, in charge of {{$info->zone->nurse->name}}, {{$info->zone->nurse->surname}}</p><br>
+                                            <p>At {{$info->info["created_at"]->format('H:i:s')}} of {{$info->info["created_at"]->format('d/m/y')}}, patient {{$data["name"]}}, {{$data["surname"]}} entered the institution with {{$info->info["info"]}}, it’s dispatched to Zone {{$info->zone_id}} {{-- , in charge of  {{$info->emergency_room->nurse->name}}, {{$info->emergency_room->nurse->surname}} --}}                                            </p><br>
                                         @endif
                                         @if ($data->has("Stay-Events"))
                                             @foreach ($data["Stay-Events"] as $event)
@@ -233,16 +230,11 @@
                             </div>
                         </div>
                     </div>
-                    <div class="p-4 relative">
-                        {{QrCode::size(256)->generate(url($extensive_url))}}
-                    </div>
                 </div>
             </div>
         </div>
     </div>
-    <script src="/scripts/bootstrap.bundle.min.js?ver=1.2.0"></script>
-    <script src="/scripts/aos.js?ver=1.2.0"></script>
-    <script src="/scripts/main.js?ver=1.2.0"></script>
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js" integrity="sha384-C6RzsynM9kWDrMNeT87bh95OGNyZPhcTNXj1NW7RuBCsyN/o0jlpcV8Qyq46cDfL" crossorigin="anonymous"></script>
 </body>
 
 </html>

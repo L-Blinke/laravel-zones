@@ -7,7 +7,7 @@ use App\Http\Requests\OtpCodeRequest;
 use Backpack\CRUD\app\Http\Controllers\CrudController;
 use Backpack\CRUD\app\Library\CrudPanel\CrudPanelFacade as CRUD;
 use Illuminate\Validation\Rule;
-use App\Models\Zone;
+use App\Models\EmergencyRoom;
 
 /**
  * Class OtpCodeCrudController
@@ -59,8 +59,8 @@ class OtpCodeCrudController extends CrudController
     protected function setupCreateOperation()
     {
         CRUD::setValidation([
-            'zone_id' => Rule::in(Zone::pluck('id')->toArray()),
-            'type' => Rule::in(["General","Blue"]),
+            'zone_id' => Rule::in(EmergencyRoom::pluck('id')->toArray()),
+            'type' => Rule::in(InterruptorTypesEnum::asArray()),
             'passphrase' => 'required'
        ]);
        CRUD::AddField([
@@ -79,7 +79,7 @@ class OtpCodeCrudController extends CrudController
         'type'      => 'select',
         'name'      => 'zone_id',
         'entity'    => 'zone',
-        'model'     => "App\Models\Zone",
+        'model'     => "App\Models\EmergencyRoom",
         'attribute' => 'id'
         ]);
     }
@@ -93,8 +93,8 @@ class OtpCodeCrudController extends CrudController
     protected function setupUpdateOperation()
     {
         CRUD::setValidation([
-            'zone_id' => Rule::in(Zone::pluck('id')->toArray()),
-            'type' => Rule::in(["General","Blue"]),
+            'zone_id' => Rule::in(EmergencyRoom::pluck('id')->toArray()),
+            'type' => Rule::in(InterruptorTypesEnum::asArray()),
             'passphrase' => 'nullable'
        ]);
 
@@ -102,7 +102,7 @@ class OtpCodeCrudController extends CrudController
         'name'        => 'type',
         'label'       => "Interruptor type",
         'type'        => 'select_from_array',
-        'options'     => ["Blue" => "Blue Code", "General" => "General call"],
+        'options'     => InterruptorTypesEnum::asArray(),
         'allows_null' => false,
         ]);
        CRUD::AddField([
@@ -114,10 +114,10 @@ class OtpCodeCrudController extends CrudController
         'type'      => 'select',
         'name'      => 'zone_id',
         'entity'    => 'zone',
-        'model'     => "App\Models\Zone",
+        'model'     => "App\Models\EmergencyRoom",
         'attribute' => 'id',
         'options'   => (function ($query) {
-             return $query->all();
+             return $query->get();
          })
         ]);
     }

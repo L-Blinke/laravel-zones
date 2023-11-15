@@ -171,6 +171,7 @@ return [
         App\Providers\FortifyServiceProvider::class,
         App\Providers\JetstreamServiceProvider::class,
         Ichtrojan\Otp\OtpServiceProvider::class,
+        Barryvdh\Snappy\ServiceProvider::class,
     ])->toArray(),
 
     /*
@@ -186,6 +187,8 @@ return [
 
     'aliases' => Facade::defaultAliases()->merge([
         'Otp' => Ichtrojan\Otp\Otp::class,
+        'PDF' => Barryvdh\Snappy\Facades\SnappyPdf::class,
+'SnappyImage' => Barryvdh\Snappy\Facades\SnappyImage::class,
     ])->toArray(),
 
 ];

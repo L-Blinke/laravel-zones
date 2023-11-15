@@ -58,10 +58,14 @@ class ClinicalLog extends Model
     }
 
     public function Export() {
+        try {
         fopen(storage_path('app/public/tmp/clinicalLogs.xlsx'), "w");
         Excel::store((new ClinicalLogExport), storage_path('app/public/tmp/clinicalLogs.xlsx'));
 
         return '<a href="/internal/clinical-logs/export" target="_blank" class="btn btn-primary" data-style="zoom-in"> <span><i class="la la-file"></i> Exportar historiales clínicos</span> </a>';
+        } catch (\Throwable $th) {
+            return '';
+        }
     }
 
     public function Import() {

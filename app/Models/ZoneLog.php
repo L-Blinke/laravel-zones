@@ -34,7 +34,7 @@ class ZoneLog extends Model
 
     public function zone() : BelongsTo
     {
-        return $this->belongsTo(Zone::class);
+        return $this->belongsTo(EmergencyRoom::class);
     }
 
     public function call() : BelongsTo

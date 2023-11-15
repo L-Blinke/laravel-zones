@@ -32,7 +32,8 @@ Route::prefix('internal')->middleware(['auth:sanctum','web'])->controller(Routin
 });
 
 Route::prefix('internal')->middleware(['auth:sanctum','web'])->controller(DocumentationController::class)->group(function (){
-    Route::get('/document/userResume/{id}', 'userResume');
+    Route::get('/document/patientResume/{id}', 'userResume');
+    Route::get('/document/nurseResume/{id}', 'nurseResume');
     Route::get('/document/callResume/{id}', 'callResume');
     Route::get('/document/userResumeDownload/{id}', 'downloadUserResume');
 });

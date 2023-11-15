@@ -1,6 +1,6 @@
 <?php
 
-use App\Models\Zone;
+use App\Models\EmergencyRoom;
 use App\Enums\ZoneLogEnum;
 use App\Enums\ZoneLogType;
 use Illuminate\Database\Migrations\Migration;
@@ -18,7 +18,7 @@ return new class extends Migration
             $table->id();
             $table->enum('type', ZoneLogEnum::getValues());
             $table->enum('typeFor', ZoneLogType::getValues());
-            $table->foreignIdFor(Zone::class, 'zone_id');
+            $table->foreignIdFor(EmergencyRoom::class, 'zone_id');
             $table->foreignId('foreign_id');
             $table->timestamps();
         });

@@ -1,4 +1,5 @@
-<div wire:poll="refresh" class="relative"> @php use App\Models\Zone; @endphp
+<div wire:poll="refresh" class="relative">
+    @if (App\Models\EmergencyRoom::count() != null)
     <div class="grid grid-rows-{{$columns[0]}} grid-cols-{{count($columns)}} gap-4">@php $count = 0; @endphp
         @foreach ($columns as $index => $column)
             <div class="row-span-{{$columns[0]}} grid grid-rows-{{$columns[0]}} gap-4">
@@ -8,21 +9,22 @@
                         @if (in_array($i+1, $spaces[$index]))
                             <div class="row-span-1 h-16 w-full"></div>
                             @if (!in_array(($i+2), $spaces[$index]))
-                                 <x-dashboard.zones.zone-row :zone="Zone::find($count+1)" />
+                                <x-dashboard.zones.zone-row :zone="App\Models\EmergencyRoom::find($count+1)" />
                                 @php $count++; @endphp
                             @endif
                         @else
                             @if ($i < $column && !in_array($i, $spaces[$index]))
-                                <x-dashboard.zones.zone-row :zone="Zone::find($count+1)" />
+                                <x-dashboard.zones.zone-row :zone="App\Models\EmergencyRoom::find($count+1)" />
                                 @php $count++; @endphp
                             @endif
                         @endif
                     @else
-                    <x-dashboard.zones.zone-row :model="Zone::find($count+1)" />
+                    <x-dashboard.zones.zone-row :model="App\Models\EmergencyRoom::find($count+1)" />
                         @php $count++; @endphp
                     @endif
                 @endfor
             </div>
         @endforeach
     </div>
+    @endif
 </div>

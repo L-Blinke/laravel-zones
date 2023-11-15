@@ -2,7 +2,7 @@
 
 namespace App\Http\Controllers\Admin\Operations;
 
-use App\Models\Zone;
+use App\Models\EmergencyRoom;
 use Backpack\CRUD\app\Http\Controllers\Operations\Concerns\HasForm;
 use Backpack\CRUD\app\Library\Widget;
 
@@ -58,11 +58,11 @@ trait AsignOperation
                  })
              ]);
 
-             if (Zone::find($this->crud->getCurrentEntryId())->patient()->exists() != null) {
+             if (EmergencyRoom::find($this->crud->getCurrentEntryId())->patient()->exists() != null) {
                 $this->crud->addField([
                     'name'  => 'originalValue',
                     'type'  => 'hidden',
-                    'value' => Zone::find($this->crud->getCurrentEntryId())->patient->id,
+                    'value' => EmergencyRoom::find($this->crud->getCurrentEntryId())->patient->id,
                 ]);
              }
 

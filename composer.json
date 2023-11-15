@@ -9,9 +9,11 @@
         "asantibanez/livewire-charts": "^3.0",
         "backpack/crud": "^6.2",
         "backpack/theme-tabler": "^1.1",
-        "barryvdh/laravel-dompdf": "^2.0",
+        "barryvdh/laravel-snappy": "^1.0",
         "bensampo/laravel-enum": "^6.6",
         "guzzlehttp/guzzle": "^7.2",
+        "h4cc/wkhtmltoimage-amd64": "0.12.x",
+        "h4cc/wkhtmltopdf-amd64": "0.12.x",
         "ichtrojan/laravel-otp": "^1.4",
         "laravel/framework": "^10.10",
         "laravel/jetstream": "^4.0",
@@ -23,7 +25,8 @@
         "rappasoft/laravel-livewire-tables": "dev-v3-master",
         "simplesoftwareio/simple-qrcode": "^4.2",
         "smalot/pdfparser": "^2.7",
-        "spatie/browsershot": "^3.58"
+        "spatie/browsershot": "^3.58",
+        "wire-elements/modal": "^2.0"
     },
     "require-dev": {
         "backpack/generators": "^4.0",

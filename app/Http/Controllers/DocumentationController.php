@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Models\User;
 use App\Models\ClinicalLog;
+use Barryvdh\Snappy\Facades\SnappyPdf as PDF;
 use Spatie\Browsershot\Browsershot;
 
 class DocumentationController extends Controller
@@ -22,7 +23,29 @@ class DocumentationController extends Controller
         $info["Stay-Events"] = $user->stayEvents;
         $data = ($user->privilege == "Patient") ? (collect($user))->merge($info) : $user;
 
-        return view('presets.userResume', ["data" => $data, "extensive_url" => "internal/document/userResume/".$id]);
+        // return view('presets.userResume', ["data" => $data, "extensive_url" => "internal/document/userResume/".$id]);
+        $pdf = PDF::loadView('presets.userResume', ["data" => $data, "extensive_url" => "internal/document/userResume/".$id]);
+        $pdf->setOption('margin-left', 0);
+        $pdf->setOption('margin-right', 0);
+        $pdf->setPaper('a3');
+        $pdf->setOption('enable-local-file-access', true);
+        return $pdf->inline();
+    }
+
+    public function nurseResume(int $id){
+        $user = User::find($id);
+        $info["user_id"] = $id;
+        $info["Stay-Info"] = $user->stayInfo;
+        $info["Stay-Events"] = $user->stayEvents;
+        $data = ($user->privilege == "Patient" || $user->privilege == "Nurse") ? (collect($user))->merge($info) : $user;
+
+        // return view('presets.userResume', ["data" => $data, "extensive_url" => "internal/document/userResume/".$id]);
+        $pdf = PDF::loadView('presets.nurseResume', ["data" => $data, "extensive_url" => "internal/document/nurseResume/".$id]);
+        $pdf->setOption('margin-left', 0);
+        $pdf->setOption('margin-right', 0);
+        $pdf->setPaper('a3');
+        $pdf->setOption('enable-local-file-access', true);
+        return $pdf->inline();
     }
 
     public function downloadUserResume()

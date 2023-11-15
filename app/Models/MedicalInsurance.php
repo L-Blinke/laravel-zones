@@ -23,10 +23,14 @@ class MedicalInsurance extends Model
     ];
 
     public function Export() {
+        try {
         fopen(storage_path('app/public/tmp/medicalInsurances.xlsx'), "w");
         Excel::store((new MedicalInsuranceExport), storage_path('app/public/tmp/medicalInsurances.xlsx'));
 
         return '<a href="/internal/medical-insurances/export" target="_blank" class="btn btn-primary" data-style="zoom-in"> <span><i class="la la-file"></i> Exportar coberturas medicas</span> </a>';
+        } catch (\Throwable $th) {
+            return '';
+        }
     }
 
     public function Import() {

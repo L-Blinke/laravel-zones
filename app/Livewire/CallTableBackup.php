@@ -8,6 +8,9 @@ use Maatwebsite\Excel\Facades\Excel;
 use App\Exports\CallsExport;
 use App\Models\Call;
 use Carbon\Carbon;
+use Rappasoft\LaravelLivewireTables\Views\Columns\ButtonGroupColumn;
+use Rappasoft\LaravelLivewireTables\Views\Columns\ComponentColumn;
+use Rappasoft\LaravelLivewireTables\Views\Columns\LinkColumn;
 
 class CallTableBackup extends DataTableComponent
 {
@@ -28,6 +31,11 @@ class CallTableBackup extends DataTableComponent
                 ->sortable(),
             Column::make("Zone id", "zone_id")
                 ->sortable(),
+            ComponentColumn::make('Solve', 'id')
+                ->component('button')
+                ->attributes(fn ($value, $row, Column $column) => [
+                    'call' => $row
+                ]),
         ];
     }
 

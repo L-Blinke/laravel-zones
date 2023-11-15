@@ -23,10 +23,14 @@ class PathologyType extends Model
     ];
 
     public function Export() {
+        try {
         fopen(storage_path('app/public/tmp/pathologyTypes.xlsx'), "w");
         Excel::store((new PathologyTypeExport), storage_path('app/public/tmp/pathologyTypes.xlsx'));
 
         return '<a href="/internal/pathology-types/export" target="_blank" class="btn btn-primary" data-style="zoom-in"> <span><i class="la la-file"></i> Exportar tipo de patologías</span> </a>';
+        } catch (\Throwable $th) {
+            return '';
+        }
     }
 
     public function Import() {

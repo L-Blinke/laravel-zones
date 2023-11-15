@@ -27,4 +27,6 @@ Route::group([
     Route::crud('clinical-log', 'ClinicalLogCrudController');
     Route::crud('medical-insurance', 'MedicalInsuranceCrudController');
     Route::crud('preferences', 'PreferencesCrudController');
+    Route::crud('zone-component', 'ZoneComponentCrudController');
+    Route::crud('report', 'ReportCrudController');
 }); // this should be the absolute last line of this file

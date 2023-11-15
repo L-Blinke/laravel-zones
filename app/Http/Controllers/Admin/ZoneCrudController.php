@@ -27,7 +27,7 @@ class ZoneCrudController extends CrudController
      */
     public function setup()
     {
-        CRUD::setModel(\App\Models\Zone::class);
+        CRUD::setModel(\App\Models\EmergencyRoom::class);
         CRUD::setRoute(config('backpack.base.route_prefix') . '/zone');
         CRUD::setEntityNameStrings('zone', 'zones');
     }

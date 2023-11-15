@@ -4,7 +4,9 @@ namespace App\Http\Controllers;
 
 use Carbon\Carbon;
 use App\Models\Call;
+use App\Models\ClinicalLog;
 use App\Models\OtpCode;
+use App\Models\User;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 
@@ -56,7 +58,7 @@ class RoutingController extends Controller
     }
 
     public function pathologyTypesExport() {
-        return response()->download(storage_path('app/public/tmp/pathologyTypes.xlsx'));
+        // return response()->download(storage_path('app/public/tmp/pathologyTypes.xlsx'));
     }
 
     public function medicalInsurancesExport() {

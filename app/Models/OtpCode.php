@@ -25,6 +25,6 @@ class OtpCode extends Model
 
     public function zone(): BelongsTo
     {
-        return $this->belongsTo(Zone::class, 'zone_id');
+        return $this->belongsTo(EmergencyRoom::class, 'zone_id');
     }
 }

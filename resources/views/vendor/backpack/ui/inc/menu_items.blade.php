@@ -9,3 +9,6 @@
 <x-backpack::menu-item title="Pathologies" icon="la la-notes-medical" :link="backpack_url('pathologies')" />
 <x-backpack::menu-item title="Medical insurances" icon="la la-hospital" :link="backpack_url('medical-insurance')" />
 <x-backpack::menu-item title="Clinical logs" icon="la la-file-medical" :link="backpack_url('clinical-log')" />
+
+<x-backpack::menu-item title="Zone components" icon="la la-question" :link="backpack_url('zone-component')" />
+<x-backpack::menu-item title="Reports" icon="la la-question" :link="backpack_url('report')" />

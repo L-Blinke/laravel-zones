@@ -8,11 +8,13 @@ use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 use Carbon\Carbon;
 use App\Enums\ZoneLogEnum;
+use App\Traits\HasData;
 use Illuminate\Database\Eloquent\Relations\HasMany;
 
 class Call extends Model
 {
     use HasFactory;
+    use HasData;
 
     protected $fillable = [
         'type',
@@ -58,10 +60,10 @@ class Call extends Model
 
     public static function clearCalls(int $zone) : void
     {
-        ZoneLog::create(['type' => new ZoneLogEnum(ZoneLogEnum::CallChanged), 'zone_id' => $zone]);
-        ZoneLogInfo::create([
+        ZoneLog::create(['type' => new ZoneLogEnum(ZoneLogEnum::CallChanged), 'zone_id' => $zone, 'foreign_id' => 0]);
+        // ZoneLogInfo::create([
 
-        ]);
+        // ]);
         Call::where('zone_id', $zone)->where('completed_at', null)->update(['completed_at' => Carbon::now(), 'resolutionStatus' => "Inconclusive"]);
     }
 
