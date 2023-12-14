@@ -49,13 +49,9 @@ class Call extends Model
 
     public function solve(string $info = "null") : void
     {
-        $this->update(['completed_at' => Carbon::now()]);
         ZoneLogInfo::create(['info' => $info, 'zone_log_id' => (ZoneLog::create(['type' => new ZoneLogEnum(ZoneLogEnum::CallSolved), 'zone_id' => $this->zone_id, 'typeFor' => new ZoneLogType(ZoneLogType::ForCall), 'foreign_id' =>  $this->id]))->id]);
-    }
-
-    public static function antiqueCalls() : bool
-    {
-        return (empty(Call::where('zone_id','=',4)->where('completed_at','=',null)->get()->toArray())) ? true : false;
+        $this->update(['resolutionStatus' => $info, 'completed_at' => Carbon::now()]);
+        $this->save();
     }
 
     public static function clearCalls(int $zone) : void

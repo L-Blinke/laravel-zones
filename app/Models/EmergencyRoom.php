@@ -122,6 +122,18 @@ class EmergencyRoom extends Model
         }
     }
 
+    public function statusEvents()
+    {
+        if (count($this->calls->where('completed_at', null)) > 0) {
+            switch ($this->calls->where('completed_at', null)->first()->type){
+                case CallTypesEnum::GeneralCode:
+                    return ' Swal.fire({ title: "General code", text: "Zone '.$this->id.'", icon: "warning" });';
+                case CallTypesEnum::BlueCode:
+                    return "Swal.fire({ title: 'Blue code', text: 'Zone ".$this->id.", ', icon: 'error' });";
+            }
+        }
+    }
+
     public function asignPatient(int $patient_id, string $message)
     {
         $this->patient_id = $patient_id;
@@ -150,6 +162,11 @@ class EmergencyRoom extends Model
         ]);
         $this->patient_id = null;
         $this->save();
+    }
+
+    public function antiqueCalls() : bool
+    {
+        return (empty(Call::where('zone_id','=',$this->id)->where('completed_at','=',null)->get()->toArray())) ? true : false;
     }
 
     public function dispatchAndAsignPatient(int $patient_id, string $dispatchMessage, string $assignationMessage)

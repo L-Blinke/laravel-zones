@@ -8,6 +8,11 @@ Route::controller(RoutingController::class)->middleware(['auth:sanctum','web'])-
     Route::get('/', 'home')->name('home');
     Route::get('/chats', 'chat')->name('chats');
     Route::get('/zone/{zoneId}', 'zone');
+
+    Route::get('/makeCallButton', 'makeCallButton');
+    Route::get('/solveCallButton', 'solveCallButton');
+    Route::get('/asignNewPatient', 'asignNewPatient');
+    Route::get('/dispatchPatient', 'dispatchPatient');
 });
 
 Route::prefix('api')->controller(RoutingController::class)->middleware(['otpVerification'])->group(function () {
@@ -15,6 +20,12 @@ Route::prefix('api')->controller(RoutingController::class)->middleware(['otpVeri
     Route::post('/call/make', 'call');
     Route::get('/call/solve', 'solveCall');
     Route::post('/call/solve', 'solveCall');
+    Route::get('/call/asign', 'asign');
+    Route::post('/call/asign', 'asign');
+    Route::get('/call/dispatch', 'dispatch');
+    Route::post('/call/dispatch', 'dispatch');
+    Route::get('/call/diagnose', 'diagnose');
+    Route::post('/call/diagnose', 'diagnose');
 });
 
 Route::prefix('internal')->middleware(['auth:sanctum','web'])->controller(RoutingController::class)->group(function () {

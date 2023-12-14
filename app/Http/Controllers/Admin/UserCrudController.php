@@ -60,7 +60,7 @@ class UserCrudController extends CrudController
              'email' => 'required|email|unique:users,email,'.CRUD::getCurrentEntryId(),
              'cuil' => 'required|integer|unique:users,cuil,'.CRUD::getCurrentEntryId(),
              'password' => 'required|min:4',
-             'privilege' => Rule::in(["Receptionist","Patient","Nurse","Paramedic","Accountant"]),
+             'privilege' => Rule::in(["Receptionist","Patient","Nurse","Paramedic","Accountant", "Button"]),
         ]);
 
         CRUD::AddField([
@@ -83,7 +83,8 @@ class UserCrudController extends CrudController
             'name'        => 'privilege',
             'label'       => "Privilege",
             'type'        => 'select_from_array',
-            'options'     => ["Receptionist" => "Receptionist", "Patient" => "Patient","Nurse" => "Nurse","Paramedic" => "Paramedic","Accountant" => "Accountant"],
+            'options'     => ["Receptionist" => "Receptionist", "Patient" => "Patient","Nurse" => "Nurse","Paramedic" => "Paramedic","Accountant" => "Accountant",
+            "Button" => "Button"],
             'allows_null' => false,
         ]);
         CRUD::AddField([

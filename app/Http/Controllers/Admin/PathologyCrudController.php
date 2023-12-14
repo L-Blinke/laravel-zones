@@ -29,6 +29,24 @@ class PathologyCrudController extends CrudController
         CRUD::setModel(\App\Models\Pathology::class);
         CRUD::setRoute(config('backpack.base.route_prefix') . '/pathologies');
         CRUD::setEntityNameStrings('pathology', 'pathologies');
+        CRUD::modifyColumn('pathology_type_id', [
+            // 1-n relationship
+            'label'     => 'Pathology', // Table column heading
+            'type'      => 'select',
+            'name'      => 'pathology_type_id', // the column that contains the ID of that connected entity;
+            'entity'    => 'pathologyType', // the method that defines the relationship in your Model
+            'attribute' => 'name', // foreign key attribute that is shown to user
+            'model'     => "App\Models\PathologyType", // foreign key model
+         ]);
+         CRUD::modifyColumn('clinical_log_id', [
+            // 1-n relationship
+            'label'     => 'Patient ID', // Table column heading
+            'type'      => 'select',
+            'name'      => 'clinical_log_id', // the column that contains the ID of that connected entity;
+            'entity'    => 'patient', // the method that defines the relationship in your Model
+            'attribute' => 'id', // foreign key attribute that is shown to user
+            'model'     => "App\Models\User", // foreign key model
+         ]);
     }
 
     /**

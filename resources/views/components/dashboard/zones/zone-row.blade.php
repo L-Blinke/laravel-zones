@@ -7,3 +7,5 @@
         </div>
     </div>
 </a>
+<script>{!! $model->statusEvents() !!}</script>
+

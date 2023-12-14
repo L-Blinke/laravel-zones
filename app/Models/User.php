@@ -12,6 +12,7 @@ use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Relations\HasMany;
 use Illuminate\Database\Eloquent\Relations\HasManyThrough;
 use Illuminate\Database\Eloquent\Relations\HasOne;
+use Illuminate\Database\Eloquent\Relations\HasOneThrough;
 use Illuminate\Foundation\Auth\User as Authenticatable;
 use Illuminate\Notifications\Notifiable;
 use Laravel\Fortify\TwoFactorAuthenticatable;
@@ -58,9 +59,13 @@ class User extends Authenticatable
     {
         if ($this->privilege == "Nurse") {
             return $this->HasMany(EmergencyRoom::class, 'nurse_id');
-        }else{
-            return $this->hasOne(EmergencyRoom::class, 'patient_id');
+        }else {
+            return $this->HasOne(EmergencyRoom::class, 'patient_id');
         }
+    }
+
+    public function userZone() : hasOne{
+        return $this->HasOne(UserZone::class);
     }
 
     public function clinicalLogData(): HasOne

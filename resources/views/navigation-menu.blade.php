@@ -10,15 +10,26 @@
                     </a>
                 </div>
 
-                <!-- Navigation Links -->
-                <div class="hidden space-x-8 sm:-my-px sm:ml-10 sm:flex">
-                    <x-nav-link href="{{ url('/') }}" :active="request()->routeIs('dashboard')">
-                        {{ __('Dashboard') }}
-                    </x-nav-link>
-                    <x-nav-link href="{{ route('chats') }}" :active="request()->routeIs('chats')">
-                        {{ __('Chats') }}
-                    </x-nav-link>
-                </div>
+                @if (Auth::user()->privilege == 'Button' || Auth::user()->privilege == 'Nurse')
+                    <!-- Navigation Links -->
+                    <div class="hidden space-x-8 sm:-my-px sm:ml-10 sm:flex">
+                        <x-nav-link href="{{ url('/makeCallButton') }}" :active="request()->routeIs('dashboard')">
+                            {{ __('Make call') }}
+                        </x-nav-link>
+                        <x-nav-link href="{{ url('/solveCallButton') }}" :active="request()->routeIs('chats')">
+                            {{ __('Solve call') }}
+                        </x-nav-link>
+                    </div>
+                @else
+                    <div class="hidden space-x-8 sm:-my-px sm:ml-10 sm:flex">
+                        <x-nav-link href="{{ url('/') }}" :active="request()->routeIs('dashboard')">
+                            {{ __('Dashboard') }}
+                        </x-nav-link>
+                        <x-nav-link href="{{ route('chats') }}" :active="request()->routeIs('chats')">
+                            {{ __('Chats') }}
+                        </x-nav-link>
+                    </div>
+                @endif
             </div>
 
             <div class="hidden sm:flex sm:items-center sm:ml-6">
@@ -145,14 +156,31 @@
 
     <!-- Responsive Navigation Menu -->
     <div :class="{'block': open, 'hidden': ! open}" class="hidden sm:hidden">
-        <div class="pt-2 pb-3 space-y-1">
-            <x-responsive-nav-link href="{{ url('/') }}" :active="request()->routeIs('dashboard')">
-                {{ __('Dashboard') }}
-            </x-responsive-nav-link>
-            <x-responsive-nav-link href="{{ route('chats') }}" :active="request()->routeIs('chats')">
-                {{ __('Chats') }}
-            </x-responsive-nav-link>
-        </div>
+        @if (Auth::user()->privilege == 'Button' || Auth::user()->privilege == 'Nurse')
+            <div class="pt-2 pb-3 space-y-1">
+                <x-responsive-nav-link href="{{ url('/makeCallButton') }}" :active="request()->routeIs('dashboard')">
+                    {{ __('Make call button') }}
+                </x-responsive-nav-link>
+                <x-responsive-nav-link href="{{ url('/solveCallButton') }}" :active="request()->routeIs('chats')">
+                    {{ __('Solve call button') }}
+                </x-responsive-nav-link>
+                <x-responsive-nav-link href="{{ url('/asignNewPatient') }}" :active="request()->routeIs('chats')">
+                    {{ __('Asign new patient') }}
+                </x-responsive-nav-link>
+                <x-responsive-nav-link href="{{ url('/dispatchPatient') }}" :active="request()->routeIs('chats')">
+                    {{ __('Dispatch patient') }}
+                </x-responsive-nav-link>
+            </div>
+        @else
+            <div class="pt-2 pb-3 space-y-1">
+                <x-responsive-nav-link href="{{ url('/') }}" :active="request()->routeIs('dashboard')">
+                    {{ __('Dashboard') }}
+                </x-responsive-nav-link>
+                <x-responsive-nav-link href="{{ route('chats') }}" :active="request()->routeIs('chats')">
+                    {{ __('Chats') }}
+                </x-responsive-nav-link>
+            </div>
+        @endif
 
         <!-- Responsive Settings Options -->
         <div class="pt-4 pb-1 border-t border-gray-200 dark:border-gray-600">

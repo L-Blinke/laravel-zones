@@ -1,27 +1,47 @@
-const originalTypeValue = crud.field('type').value;
-
-const originalModelValue = crud.field('type').value;
-
 i = 0;
+i2 = 1;
 
-if (originalTypeValue == "View") {
-    crud.field('list-icon').hide();
-}
-
-while (crud.field('function_name_'+i).value !== undefined) {
-    crud.field('function_name_'+i).show(crud.field('model_id').input.options.selectedIndex == i);
+while (crud.field('function_name_'+i+"_"+i2).value !== undefined) {
+    for (let index = 1; index <= crud.field('range').value; index++) {
+        crud.field('function_name_'+i+"_"+index).show(crud.field('model_id').input.options.selectedIndex == i);
+        i2++;
+    }
     i++;
+    i2 = 1;
 }
 
-crud.field('type').onChange(function(field) {
-    crud.field('list-icon').show(field.value != "View");
+crud.field('range').onChange(function(field) {
+    console.log(field.value);
 }).change();
 
 crud.field('model_id').onChange(function(field) {
     e = 0;
+    e2 = 1;
 
-    while (crud.field('function_name_'+e).value !== undefined) {
-        crud.field('function_name_'+e).show(crud.field('model_id').input.options.selectedIndex == e);
+    while (crud.field('function_name_'+e+"_"+e2).value !== undefined) {
+        for (let index = 1; index <= 4; index++) {
+            crud.field('function_name_'+e+"_"+index).show(crud.field('model_id').input.options.selectedIndex == e && crud.field('range').value >= index);
+            e2++;
+        }
         e++;
+        e2 = 1;
     }
+
+
+}).change();
+
+crud.field('range').onChange(function(field) {
+    e = 0;
+    e2 = 1;
+
+    while (crud.field('function_name_'+e+"_"+e2).value !== undefined) {
+        for (let index = 1; index <= 4; index++) {
+            crud.field('function_name_'+e+"_"+index).show(crud.field('model_id').input.options.selectedIndex == e && crud.field('range').value >= index);
+            e2++;
+        }
+        e++;
+        e2 = 1;
+    }
+
+
 }).change();
